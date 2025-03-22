@@ -63,9 +63,17 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 
 | Azure Resource | Service Tier | Monthly Cost |
 | ------------ | ------------ | ------------ |
-| *Azure Postgres Database* |     |              |
-| *Azure Service Bus*   |         |              |
-| ...                   |         |              |
+| *Azure Postgres Database* | D2ds v3 | $149.79 |
+| *Azure Service Bus*   | Standard | $68.04 |
+| *Azure App Service* | B1 | $54.75 |
+| *Azure Functions* | On Demand | Variable |
+| *Azure Storage* | On Demand | Variable |
+| *TOTAL (aprox)* |  | $272.58 |
+
+**NOTES**:
+- I'm considering the minimum tier of each resource for production workloads.
+- Azure storage has a cost of $0.01 per GB on cool access.
+- Azure functions has a cost of $0.000026/GB-s, with the first 100,000 GB-s free per month.
 
 ## Architecture Explanation
-This is a placeholder section where you can provide an explanation and reasoning for your architecture selection for both the Azure Web App and Azure Function.
+By separating the logic that sends the notifications from the web app, we're freeing up the workload and speeding up the response time for the notification page. The function runs as a background service completely independent of the web app.
