@@ -82,6 +82,7 @@ def notification():
             # db.session.commit()
             # TODO Call servicebus queue_client to enqueue notification ID
 
+            # Some code taken from Microsoft portal
             sender = queue_client.get_sender()
             sender.send(Message('{}'.format(notification.id), encoding='utf-8'))
 
