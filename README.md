@@ -76,4 +76,8 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 - Azure functions has a cost of $0.000026/GB-s, with the first 100,000 GB-s free per month.
 
 ## Architecture Explanation
-By separating the logic that sends the notifications from the web app, we're freeing up the workload and speeding up the response time for the notification page. The function runs as a background service completely independent of the web app.
+The application has both a frontend and a backend component. The front end consists of an Azure Web App that hosts the static elements of the web page and the routines that insert the notification data on the database and send a message with the notificacion ID to a queue.
+
+The backend component consists of a PostgreSQL database that hosts the data, an Azure Service Bus with a queue, and an Azure Function triggered every time a message is pushed into the queue. The function receives the message with the notification ID, retrieves the notification data from the database and sends an email to the attendees.
+
+The advantage of this architecture is that the front end is released from a workload that can be executed in a backend process. The notifications page should not wait to respond until all the emails have been sent, and it has a faster response time.
